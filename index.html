@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>puzzle</title>
+
+<style>
+
+.gameButton {
+  width: 200px;
+  height: 200px;
+  color:red;
+  font-size: 90px;
+}
+
+h2   {color: blue;}
+</style>
+
+<script>
+
+function initialize(){
+  blankPos=1;
+  stepcount=0;
+  //var today = new Date(0000,00,00,00,00,00);
+  startTime = Date.now();
+  myTimer = setInterval(updateTime, 1000);
+
+}
+
+function updateTime(){
+  endTime = Date.now();
+  //alert(endTime);
+  elapsedTime=(endTime - startTime);
+  //alert("---1--" + elapsedTime);
+  newDate = new Date(elapsedTime - 3600000 * 5.5);
+  //newDate.setSeconds(elapsedTime/1000);
+  //elapsedTime=newDate.toLocaleTimeString();
+  //alert("-2----" + elapsedTime);
+  txtTimer.value=newDate.getHours() + ":" + newDate.getMinutes() + ":" + newDate.getSeconds();
+  //alert("---3--" + elapsedTime);
+}
+
+function move(myPos) {
+  //alert(startTime);
+  //alert(Math.abs(myPos-blankPos));
+  //alert(blankPos);
+  //alert(me.id);
+  //me = document.getElementById(id);
+  //myPos = me.getAttribute("data-pos");
+  if(Math.abs(myPos-blankPos)==1 || Math.abs(myPos-blankPos)==3) {
+    //alert("you are moving a nbr");
+    document.getElementsByTagName("input")[blankPos - 1].value=document.getElementsByTagName("input")[myPos-1].value
+    //alert(document.getElementsByTagName("input")[blankPos - 1].id);
+    document.getElementsByTagName("input")[myPos-1].value="  ";
+    //alert("abcd")
+    blankPos=myPos;
+    stepcount+=1;
+    stepscount.value=stepcount;
+    check();
+  }
+  else {
+    alert("you can't move that number")
+  }
+}
+
+function check() {
+  //alert("check() is working")
+  //for(myPos=1; myPos≤9; myPos++)
+if(button1.value=="1" && button2.value=="2" && button3.value=="3" && button4.value=="4" && button5.value=="5" && button6.value=="6" && button7.value=="7" && button8.value=="8") {
+     alert("congratulations");
+     clearInterval(myTimer);
+
+     //stop txtTimer
+    }
+    else {
+     return false;
+     //alert("you have not completed the puzzle");
+    }
+}
+
+</script>
+</head>
+<body onload="initialize();">
+<h2>Click the buttons to move</h2>
+<table border>
+<tr>
+ <td> <input type="button" class="gameButton"  name="button1" id ="button1" value="  " onclick="move(1)"> </td>
+ <td> <input type="button" class="gameButton" name="button2" id ="button2" value="1" onclick="move(2)"> </td>
+ <td> <input type="button" class="gameButton"  name="button3" id ="button3" value="2" onclick="move(3)"> </td>
+</tr>
+<tr>
+ <td> <input type="button" class="gameButton" name="button4" id ="button4" value="3" onclick="move(4)"> </td>
+ <td> <input type="button" class="gameButton"  name="button5" id ="button5" value="4" onclick="move(5)"> </td>
+ <td> <input type="button" class="gameButton"  name="button6" id ="button6" value="5" onclick="move(6)"> </td>
+</tr>
+<tr>
+ <td> <input type="button" class="gameButton"  name="button7" id ="button7" value="6" onclick="move(7)"> </td>
+ <td> <input type="button" class="gameButton"  name="button8" id ="button8" value="7" onclick="move(8)"> </td>
+ <td> <input type="button" class="gameButton"  name="button9" id ="button9" value="8" onclick="move(9)"> </td>
+</tr>
+</table>
+<input type="reset" style="width:290px;height:70px;font-size:50px;"name="resetbtn" id="resetbtn" value="reset puzzle" onClick="location.reload(true);"> <br>
+<font size="6">number of steps taken:</font>
+<input type="text" disabled name="stepscount" id="stepscount" value="" style="font-size:50px;">
+<input disabled type"text" name="txtTimer" id="txtTimer" value="" style="font-size:50px;">
+</body>
+</html>
